@@ -5,7 +5,7 @@ library(ggplot2)
 ```
 
 ## Loading and preprocessing the data
-##### 1. Load the data (i.e. read.csv())
+##### 1. Load the data (i.e. \color{red}{\verb|read.csv()|}read.csv())
 ```{r, results='markup', warning=TRUE, message=TRUE}
 if(!file.exists('activity.csv')){
     unzip('activity.zip')
@@ -14,17 +14,18 @@ activity <- read.csv('activity.csv')
 ```
 
 ## What is mean total number of steps taken per day?
+##### 1. Calculate the total number of steps taken per day
 ```{r}
 step_day <- tapply(activity$steps, activity$date, sum, na.rm=TRUE)
 ```
 
-##### 1. Make a histogram of the total number of steps taken each day
+##### 2. Make a histogram of the total number of steps taken each day
 ```{r}
 qplot(step_day, xlab='Total steps per day', ylab='Frequency using binwith 500', binwidth=500)
 ```
 ![course5_1](plots/course5_1.png) 
 
-##### 2. Calculate and report the mean and median total number of steps taken per day
+##### 3. Calculate and report the mean and median total number of steps taken per day
 ```{r}
 step_day_mean <- mean(step_day)
 step_day_median <- median(step_day)
@@ -57,7 +58,7 @@ most_steps_time <-  gsub("([0-9]{1,2})([0-9]{2})", "\\1:\\2", average_step_time[
 * Most Steps at: 8:35
 
 ## Imputing missing values
-##### 1. Calculate and report the total number of missing values in the dataset 
+##### 1.Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with \color{red}{\verb|NA|}NAs)
 ```{r}
 num_missing <- length(which(is.na(activity$steps)))
 ```
@@ -72,14 +73,14 @@ activity_imputed$steps[is.na(activity_imputed$steps)] = mean(activity_imputed$st
 ```
 
 
-##### 4. Make a histogram of the total number of steps taken each day 
+##### 4.1 Make a histogram of the total number of steps taken each day.
 ```{r}
 step_day_imputed <- tapply(activity_imputed$steps, activity_imputed$date, sum)
 qplot(step_day_imputed, xlab='Total steps per day (Imputed)', ylab='Frequency using binwith 500', binwidth=500)
 ```
 ![course5_3](plots/course5_3.png) 
 
-##### ... and Calculate and report the mean and median total number of steps taken per day. 
+##### 4.2 Calculate and report the mean and median total number of steps taken per day. 
 ```{r}
 step_day_imputed_mean <- mean(step_day_imputed)
 step_day_imputed_median <- median(step_day_imputed)
